@@ -1,6 +1,7 @@
 var bgimg, p1img, player, invground, m1img, m2img, m3img, m4img, monsterGroup, spike, spikesimg, medimg, medGroup;
 var heart = 5, heartimg, h = [], p, spikesimg, runleft, runright, right, rightimg, left, leftimg;
 var jump, jumpimg, bulletimg, bulletGroup, flyGroup, score, gameState, startimg, endimg, ht, heartGroup;
+var bg25 , bg50 , bg75 ;
 
 
 
@@ -28,6 +29,9 @@ function preload(){
  shootSound = loadSound("shoot.mp3");
  startimg = loadImage("images/bg2.jpg");
  endimg = loadImage("images/bg4.jpg");
+ bg25 = loadImage("images/bg6.jpg");
+ bg75 = loadImage("images/bg4.png");
+ bg50 = loadImage("images/bg1.png");
 }
 
 function setup() {
@@ -76,8 +80,12 @@ function draw(){
       gameState = "play";
     }
   }
-  else if(gameState === "play"){
-    background(bgimg);
+  else if(gameState === "play" ){
+    if(score<25){ 
+      background(bgimg)
+    }
+   
+
     if(keyDown("up")&&player.y>=displayHeight-270){
       player.velocityY = -18;
     }
@@ -104,12 +112,12 @@ function draw(){
       player.visible = false;
       animation(runright, player.x, player.y, 20, 20);
     }
-    if(keyWentUp("left")){
-      player.visible = true;
-    }
+    // if(keyWentUp("left")){
+    //   player.visible = true;
+    // }
     if(mousePressedOver(left)){
       player.x = player.x - 10;
-      player.visible = false;
+      //player.visible = false;
       animation(runright, player.x, player.y, 20, 20);
     }
 
@@ -144,11 +152,11 @@ function draw(){
     }
     if(bulletGroup.isTouching(monsterGroup)){
       checkMonster(monsterGroup);
-      score = score + 1;
+      score = score + 5;
     }
     if(bulletGroup.isTouching(flyGroup)){
       checkMonster(flyGroup);
-      score += 2;
+      score += 10;
     }
     if(player.isTouching(spike)){
       score = score - 5;
@@ -159,12 +167,21 @@ function draw(){
     if(heart<=0){
       gameState = "end";
     }
-if(score === 5 ){
+    if(score === 100 ){
 
-gameState = "won"; 
+      gameState = "won"; 
 
-}
+    }
 
+    if(score >= 25 && score<50 ){
+      background (bg25);
+    }
+    if(score >= 50 && score<75 ){
+      background (bg50);
+    }
+    if(score >= 75 && score<100 ){
+      background (bg75);
+    }
     textSize(35);
     textFont("Fantasy");
     fill("black");
