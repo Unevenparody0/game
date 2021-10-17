@@ -159,11 +159,17 @@ function draw(){
     if(heart<=0){
       gameState = "end";
     }
+if(score === 5 ){
+
+gameState = "won"; 
+
+}
+
     textSize(35);
     textFont("Fantasy");
     fill("black");
     text("Score: "+score, displayWidth-300, 100);
-    drawSprites();
+    
   }
 else if(gameState==="end"){
   background(endimg);
@@ -185,9 +191,24 @@ else if(gameState==="end"){
   
 
   }
- 
+}
+else if(gameState === "won"){
 
-
+  textSize(80);
+  textFont("Comic sans ms");
+  fill("cyan");
+  text("Congratulations You Have Won", displayWidth/2-600, 100);
+  text("Press R to restart", displayWidth/2-350, 200);
+  monsterGroup.destroyEach();
+  if(keyDown("R")){
+    gameState = "play";
+    score = 0;
+    heart = 5;
+    spike.x = 30;
+    player.y = displayHeight-230;
+    player.x = displayWidth/2;
+    spawnHearts();
+}
 }
 
 drawSprites();
